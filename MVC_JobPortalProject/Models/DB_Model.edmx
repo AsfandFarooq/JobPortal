@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SaedJobsDIkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="40" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNo" Type="bigint" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="VeriicationCode" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_JobCategory">
+          <Key>
+            <PropertyRef Name="CID" />
+          </Key>
+          <Property Name="CID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_Jobs">
+          <Key>
+            <PropertyRef Name="JobID" />
+          </Key>
+          <Property Name="JobID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobName" Type="varchar" MaxLength="50" />
+          <Property Name="JobType" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobLocation" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobDescription" Type="nvarchar(max)" />
+          <Property Name="PublishDate" Type="datetime" />
+          <Property Name="LastDate" Type="datetime" />
+          <Property Name="JobStatus" Type="bit" />
+          <Property Name="NewsPaperID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_NewsPaper">
+          <Key>
+            <PropertyRef Name="NewspaperID" />
+          </Key>
+          <Property Name="NewspaperID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NewsPaperName" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <Association Name="FK__tbl_Jobs__NewsPa__164452B1">
+          <End Role="tbl_NewsPaper" Type="Self.tbl_NewsPaper" Multiplicity="0..1" />
+          <End Role="tbl_Jobs" Type="Self.tbl_Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NewsPaper">
+              <PropertyRef Name="NewspaperID" />
+            </Principal>
+            <Dependent Role="tbl_Jobs">
+              <PropertyRef Name="NewsPaperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SaedJobsDIkModelStoreContainer">
+          <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_JobCategory" EntityType="Self.tbl_JobCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Jobs" EntityType="Self.tbl_Jobs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_NewsPaper" EntityType="Self.tbl_NewsPaper" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_Jobs__NewsPa__164452B1" Association="Self.FK__tbl_Jobs__NewsPa__164452B1">
+            <End Role="tbl_NewsPaper" EntitySet="tbl_NewsPaper" />
+            <End Role="tbl_Jobs" EntitySet="tbl_Jobs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SaedJobsDIkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="Int64" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="VeriicationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_Jobs">
+          <Key>
+            <PropertyRef Name="JobID" />
+          </Key>
+          <Property Name="JobID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PublishDate" Type="DateTime" Precision="3" />
+          <Property Name="LastDate" Type="DateTime" Precision="3" />
+          <Property Name="JobStatus" Type="Boolean" />
+          <Property Name="NewsPaperID" Type="Int32" />
+          <NavigationProperty Name="tbl_NewsPaper" Relationship="Self.FK__tbl_Jobs__NewsPa__164452B1" FromRole="tbl_Jobs" ToRole="tbl_NewsPaper" />
+        </EntityType>
+        <EntityType Name="tbl_NewsPaper">
+          <Key>
+            <PropertyRef Name="NewspaperID" />
+          </Key>
+          <Property Name="NewspaperID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NewsPaperName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="tbl_Jobs" Relationship="Self.FK__tbl_Jobs__NewsPa__164452B1" FromRole="tbl_NewsPaper" ToRole="tbl_Jobs" />
+        </EntityType>
+        <Association Name="FK__tbl_Jobs__NewsPa__164452B1">
+          <End Role="tbl_NewsPaper" Type="Self.tbl_NewsPaper" Multiplicity="0..1" />
+          <End Role="tbl_Jobs" Type="Self.tbl_Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_NewsPaper">
+              <PropertyRef Name="NewspaperID" />
+            </Principal>
+            <Dependent Role="tbl_Jobs">
+              <PropertyRef Name="NewsPaperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_Context" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Admin" EntityType="Self.tbl_Admin" />
+          <EntitySet Name="tbl_Jobs" EntityType="Self.tbl_Jobs" />
+          <EntitySet Name="tbl_NewsPaper" EntityType="Self.tbl_NewsPaper" />
+          <AssociationSet Name="FK__tbl_Jobs__NewsPa__164452B1" Association="Self.FK__tbl_Jobs__NewsPa__164452B1">
+            <End Role="tbl_NewsPaper" EntitySet="tbl_NewsPaper" />
+            <End Role="tbl_Jobs" EntitySet="tbl_Jobs" />
+          </AssociationSet>
+          <EntitySet Name="tbl_JobCategory" EntityType="SaedJobsDIkModel.tbl_JobCategory" />
+        </EntityContainer>
+        <EntityType Name="tbl_JobCategory">
+          <Key>
+            <PropertyRef Name="CID" />
+          </Key>
+          <Property Name="CID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SaedJobsDIkModelStoreContainer" CdmEntityContainer="DB_Context">
+          <EntitySetMapping Name="tbl_Admin">
+            <EntityTypeMapping TypeName="SaedJobsDIkModel.tbl_Admin">
+              <MappingFragment StoreEntitySet="tbl_Admin">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="VeriicationCode" ColumnName="VeriicationCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Jobs">
+            <EntityTypeMapping TypeName="SaedJobsDIkModel.tbl_Jobs">
+              <MappingFragment StoreEntitySet="tbl_Jobs">
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+                <ScalarProperty Name="JobName" ColumnName="JobName" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="JobLocation" ColumnName="JobLocation" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="LastDate" ColumnName="LastDate" />
+                <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+                <ScalarProperty Name="NewsPaperID" ColumnName="NewsPaperID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_NewsPaper">
+            <EntityTypeMapping TypeName="SaedJobsDIkModel.tbl_NewsPaper">
+              <MappingFragment StoreEntitySet="tbl_NewsPaper">
+                <ScalarProperty Name="NewspaperID" ColumnName="NewspaperID" />
+                <ScalarProperty Name="NewsPaperName" ColumnName="NewsPaperName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_JobCategory">
+            <EntityTypeMapping TypeName="SaedJobsDIkModel.tbl_JobCategory">
+              <MappingFragment StoreEntitySet="tbl_JobCategory">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CID" ColumnName="CID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

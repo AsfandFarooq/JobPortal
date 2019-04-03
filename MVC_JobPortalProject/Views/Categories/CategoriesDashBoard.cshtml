@@ -1,0 +1,35 @@
+﻿@model MVC_JobPortalProject.Models.Category
+@{
+    ViewBag.Title = "CategoriesDashBoard";
+}
+
+<h2>CategoriesDashBoard</h2>
+
+
+    <div class="contaiMner">
+        <div class="row" style="margin-top:50px;">
+            <div class="col-md-9">
+@using (Html.BeginForm("InserCategories", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+                <div class="form-group">
+                    <label for="txtnews">Name</label>
+                    @Html.TextBoxFor(m => Model.CategoryName, new { @class = "form-control", placeholder="Enter Name Of Category" })
+                </div>
+                <div class="card">
+                    <label for="input-select">Status</label>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => Model.IsActive,
+                            new List<SelectListItem> { new SelectListItem { Text = "Active", Value = "1" },
+                            new SelectListItem { Text = "In-Active", Value = "0" } }, "Select Category Status", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => Model.IsActive)
+                        </div>
+
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-block" value="Save Data" />
+                </div>
+}
+            </div>
+        </div>
+

@@ -1,0 +1,100 @@
+﻿@model MVC_JobPortalProject.Models.ViewModel.NewsPaperViewModel
+@{
+    ViewBag.Title = "AddNewsPaper";
+}
+<style>
+    .DDMessage {
+        color: red;
+    }
+</style>
+<h2 class="text-danger"><b>Add NewsPaper</b></h2>
+
+<div class="container">
+
+    <div class="row" style="margin-top:50px;">
+
+        @using (Html.BeginForm("InsertNewsPaper", "Jobs", FormMethod.Post))
+        {
+            if (ViewBag.Message != null)
+                {
+                <div class="row">
+                    <div class="alert alert-success col-md-6" id="div">
+                        <p>@ViewBag.Message</p>
+                    </div>
+                </div>
+            }
+            <div class="col-md-9">
+
+                <div class="form-group">
+                    <label for="txtnews">Name</label>
+                    @Html.TextBoxFor(m => Model.newspaper.NewsPaperName, new { @class = "form-control", placeholder = "NewsPaper Name" })
+                    @*<input type="text" id="txtnews" class="form-control" placeholder="NewsPaper Name" />*@
+                </div>
+                <div class="card">
+                    <label for="input-select">Status</label>
+                    <div class="card-body">
+
+                        @Html.DropDownListFor(m => Model.newspaper.IsActive,
+                            new List<SelectListItem> { new SelectListItem { Text = "Active", Value = "true" },
+                            new SelectListItem { Text = "In-Active", Value = "false" } }, "Select Category Status", new { @class = "form-control" })
+
+
+                    </div>
+
+                </div>
+                <input type="submit" style="margin-top:15px;" class="btn btn-primary btn-lg btn-block" value="Save Data" />
+            </div>
+
+        }
+    </div>
+
+    <div class="row" style="margin-top:15px;">
+        <div class="col-md-9">
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+                @if (Model.ListofNewsPapers != null)
+                {
+
+                    foreach (var item in Model.ListofNewsPapers)
+                    {
+                        <tr>
+                            <td>@item.NewsPaperName</td>
+                            <td>@item.IsActive</td>
+                            <td>
+                                @Html.ActionLink("Delete", "RemovePaper", new { ID = item.NewspaperID }, new { @class = "delete" })|
+                                @Html.ActionLink("Update", "EditPaper", new { ID = item.NewspaperID })
+                                @*@Html.ActionLink("Details", "DetailPaper", new { ID = item.NewspaperID })*@
+                            </td>
+                        </tr>
+
+                    }
+                }
+            </table>
+
+
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        @*$(document).ready(function () {
+
+
+            function HideMsg() {
+                if ('@ViewBag.Message' != "") {
+
+                }
+            }
+        });*@
+        $(function () {
+            $('a.delete').click(function () {
+                if (!confirm("Are You Sure you want to Delete?")) return false;
+            });
+
+        });
+        
+    </script>
+}
